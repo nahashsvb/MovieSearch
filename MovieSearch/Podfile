@@ -1,0 +1,9 @@
+# define a global platform for your project
+platform :ios, '11.0'
+
+# Pods for MovieSearch
+target 'MovieSearch' do
+  pod 'SDWebImage', :modular_headers => true
+  pod 'Alamofire', '~> 5.2'
+  pod 'SwiftLint'
+end

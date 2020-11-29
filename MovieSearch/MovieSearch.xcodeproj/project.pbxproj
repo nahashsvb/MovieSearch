@@ -13,6 +13,7 @@
 		8576EEDB2573E9D1000983C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8576EED92573E9D1000983C6 /* Main.storyboard */; };
 		8576EEDD2573E9D2000983C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8576EEDC2573E9D2000983C6 /* Assets.xcassets */; };
 		8576EEE02573E9D2000983C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8576EEDE2573E9D2000983C6 /* LaunchScreen.storyboard */; };
+		D07B1CBDB33C584D3F2E62E9 /* libPods-MovieSearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE4A1BE816691F58FE331CB /* libPods-MovieSearch.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,9 @@
 		8576EEDC2573E9D2000983C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8576EEDF2573E9D2000983C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8576EEE12573E9D2000983C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B59764F1279E1FE1597F7622 /* Pods-MovieSearch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieSearch.release.xcconfig"; path = "Target Support Files/Pods-MovieSearch/Pods-MovieSearch.release.xcconfig"; sourceTree = "<group>"; };
+		BC071A2B7F849E1400C258DE /* Pods-MovieSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieSearch.debug.xcconfig"; path = "Target Support Files/Pods-MovieSearch/Pods-MovieSearch.debug.xcconfig"; sourceTree = "<group>"; };
+		FAE4A1BE816691F58FE331CB /* libPods-MovieSearch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MovieSearch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +35,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D07B1CBDB33C584D3F2E62E9 /* libPods-MovieSearch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		587BA51E3D7D060AE2A8BB35 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FAE4A1BE816691F58FE331CB /* libPods-MovieSearch.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8576EEC72573E9D1000983C6 = {
 			isa = PBXGroup;
 			children = (
 				8576EED22573E9D1000983C6 /* MovieSearch */,
 				8576EED12573E9D1000983C6 /* Products */,
+				B7533141A5D6DE1E72319A93 /* Pods */,
+				587BA51E3D7D060AE2A8BB35 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +82,16 @@
 			path = MovieSearch;
 			sourceTree = "<group>";
 		};
+		B7533141A5D6DE1E72319A93 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BC071A2B7F849E1400C258DE /* Pods-MovieSearch.debug.xcconfig */,
+				B59764F1279E1FE1597F7622 /* Pods-MovieSearch.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,6 +99,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8576EEE42573E9D2000983C6 /* Build configuration list for PBXNativeTarget "MovieSearch" */;
 			buildPhases = (
+				553173C107E3A41C816D0AFA /* [CP] Check Pods Manifest.lock */,
 				8576EECC2573E9D1000983C6 /* Sources */,
 				8576EECD2573E9D1000983C6 /* Frameworks */,
 				8576EECE2573E9D1000983C6 /* Resources */,
@@ -131,6 +157,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		553173C107E3A41C816D0AFA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MovieSearch-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8576EECC2573E9D1000983C6 /* Sources */ = {
@@ -283,12 +334,14 @@
 		};
 		8576EEE52573E9D2000983C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BC071A2B7F849E1400C258DE /* Pods-MovieSearch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LAH29MAHC7;
 				INFOPLIST_FILE = MovieSearch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,12 +355,14 @@
 		};
 		8576EEE62573E9D2000983C6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B59764F1279E1FE1597F7622 /* Pods-MovieSearch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LAH29MAHC7;
 				INFOPLIST_FILE = MovieSearch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
