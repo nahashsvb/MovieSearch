@@ -19,12 +19,12 @@ class SearchMoviesViewController: UIViewController {
     
     func callToViewModelForUIUpdates(){
         self.moviesViewModel = MoviesViewModel()
-        self.moviesViewModel.bindMoviesToController = {
-            self.updateDataSource()
+        self.moviesViewModel.bindMoviesToController = { [weak self] in
+            self?.updateDataSource()
         }
         
-        self.moviesViewModel.bindErrorToController = {
-            self.showError()
+        self.moviesViewModel.bindErrorToController = { [weak self] in
+            self?.showError()
         }
     }
     

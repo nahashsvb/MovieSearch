@@ -49,23 +49,23 @@ class APIService {
             return
         }
         
-        URLSession.shared.dataTask(with: sourcesURL) { (data, urlResponse, error) in
+        URLSession.shared.dataTask(with: sourcesURL) { [weak self] (data, urlResponse, error)  in
             if let data = data {
                 let jsonDecoder = JSONDecoder()
                 do {
                     let moviesData = try jsonDecoder.decode(MoviesData.self, from: data)
-                    self.moviesShortData = moviesData.movies
-                    self.moviesFullData = [MovieFullData]()
-                    self.getMoviesDetails()
+                    self?.moviesShortData = moviesData.movies
+                    self?.moviesFullData = [MovieFullData]()
+                    self?.getMoviesDetails()
                 } catch let parseError {
                     print(parseError.localizedDescription)
                     do {
                         let errorData = try jsonDecoder.decode(ResponseError.self, from: data)
                         print(errorData.error)
-                        self.delegate?.didFinishWithError(.unexpectedError)
+                        self?.delegate?.didFinishWithError(.unexpectedError)
                     } catch let parseResponseError {
                         print(parseResponseError.localizedDescription)
-                        self.delegate?.didFinishWithError(.unexpectedError)
+                        self?.delegate?.didFinishWithError(.unexpectedError)
                     }
                 }
             }
@@ -89,28 +89,28 @@ class APIService {
                 continue
             }
             
-            let subtask = URLSession.shared.dataTask(with: sourcesURL) { (data, urlResponse, error) in
-                self.subtasksFinished += 1
+            let subtask = URLSession.shared.dataTask(with: sourcesURL) { [weak self] (data, urlResponse, error) in
+                self?.subtasksFinished += 1
                 
                 if let data = data {
                     let jsonDecoder = JSONDecoder()
                     do {
                         let movieDetailsData = try jsonDecoder.decode(MovieFullData.self, from: data)
-                        self.moviesFullData.append(movieDetailsData)
+                        self?.moviesFullData.append(movieDetailsData)
                     } catch let error {
                         print(error.localizedDescription)
                         do {
                             let errorData = try jsonDecoder.decode(ResponseError.self, from: data)
                             print(errorData.error)
-                            self.delegate?.didFinishWithError(.unexpectedError)
+                            self?.delegate?.didFinishWithError(.unexpectedError)
                         } catch let error {
                             print(error.localizedDescription)
-                            self.delegate?.didFinishWithError(.unexpectedError)
+                            self?.delegate?.didFinishWithError(.unexpectedError)
                         }
                     }
                 }
                 
-                self.checkIfAllSubtasksFinished()
+                self?.checkIfAllSubtasksFinished()
             }
             
             self.subtasks.append(subtask)
