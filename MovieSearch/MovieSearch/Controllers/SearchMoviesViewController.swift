@@ -7,6 +7,7 @@
 
 import UIKit
 
+// TODO: Implement the search logic, add the search bar + collection view universal UI
 class SearchMoviesViewController: UIViewController {
 
     private var moviesViewModel : MoviesViewModel!
