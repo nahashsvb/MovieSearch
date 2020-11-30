@@ -11,6 +11,5 @@ Once the cocoapods is setup on your machine - please do the next:
 
 Third party dependencies used:
 - 
-- Alamofire - netwroking
 - SDWebImage - image lazy loading
 - SwiftLint - Swift style and conventions
