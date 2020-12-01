@@ -60,6 +60,13 @@ class SearchMoviesViewController: UIViewController {
     }
     
     func showError() {
+        // If we already fetched some data - don't hide the collection view with it,
+        // even if the next page request is failed
+        // TODO: Show some UI in this case
+        if self.moviesViewModel.moviesData.count > 0 {
+            return;
+        }
+        
         DispatchQueue.main.async {  [weak self] in
             self?.collectionView.alpha = CGFloat(0)
             self?.infoLabel.alpha = CGFloat(1)
