@@ -17,7 +17,7 @@ class SearchMoviesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Movies List"
+        self.title = "Movies"
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.collectionView.allowsSelection = true
@@ -30,8 +30,13 @@ class SearchMoviesViewController: UIViewController {
         self.collectionView.register(loadingCellNib, forCellWithReuseIdentifier: MovieLoadingCollectionViewCell.reuseIdentifier())
         
         self.setupSearchController()
-        
         callToViewModelForUIUpdates()
+        
+        // Urge user to start typing the title of the movie in a search bar
+        searchController.isActive = true
+        DispatchQueue.main.async {  [weak self] in
+          self?.searchController.searchBar.becomeFirstResponder()
+        }
     }
     
     func setupSearchController() {
@@ -99,7 +104,20 @@ extension SearchMoviesViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        if indexPath.row < self.moviesViewModel.moviesData.count {
+            self.performSegue(withIdentifier: "show_movie_details", sender: self.moviesViewModel.moviesData[indexPath.row])
+            collectionView.deselectItem(at: indexPath, animated: true)
+        }
+    }
+}
+
+extension SearchMoviesViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "show_movie_details" {
+            let detailsViewController: MovieDetailViewController = segue.destination as! MovieDetailViewController
+            let data = sender as! MovieFullData
+            detailsViewController.setMovieData(data)
+        }
     }
 }
 
