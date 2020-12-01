@@ -17,8 +17,9 @@ protocol APIServiceDelegate: class {
 }
 
 enum APIError: String, Error {
-    case unexpectedError = "Unexpected Error"
+    case notFoundError = "Movie not found!"
     case noInternet = "No Internet"
+    case noResults = "No Results Yet"
 }
 
 class APIService {
@@ -45,7 +46,7 @@ class APIService {
 
         let fetchURL = String(format: searchUrlFormat, Constants.APIKey, query, page)
         guard let sourcesURL = URL(string: fetchURL) else {
-            self.delegate?.didFinishWithError(.unexpectedError)
+            self.delegate?.didFinishWithError(.notFoundError)
             return
         }
         
@@ -62,10 +63,10 @@ class APIService {
                     do {
                         let errorData = try jsonDecoder.decode(ResponseError.self, from: data)
                         print(errorData.error)
-                        self?.delegate?.didFinishWithError(.unexpectedError)
+                        self?.delegate?.didFinishWithError(.notFoundError)
                     } catch let parseResponseError {
                         print(parseResponseError.localizedDescription)
-                        self?.delegate?.didFinishWithError(.unexpectedError)
+                        self?.delegate?.didFinishWithError(.notFoundError)
                     }
                 }
             }
@@ -102,10 +103,10 @@ class APIService {
                         do {
                             let errorData = try jsonDecoder.decode(ResponseError.self, from: data)
                             print(errorData.error)
-                            self?.delegate?.didFinishWithError(.unexpectedError)
+//                            self?.delegate?.didFinishWithError(.unexpectedError)
                         } catch let error {
                             print(error.localizedDescription)
-                            self?.delegate?.didFinishWithError(.unexpectedError)
+//                            self?.delegate?.didFinishWithError(.unexpectedError)
                         }
                     }
                 }
@@ -127,7 +128,12 @@ class APIService {
         }
         
         if self.subtasksFinished == self.subtasks.count {
-            self.delegate?.didFinishWithMovies(self.moviesFullData)
+            if self.moviesFullData.count > 0 {
+                self.delegate?.didFinishWithMovies(self.moviesFullData)
+            }
+            else {
+                self.delegate?.didFinishWithError(.noResults)
+            }
         }
     }
     

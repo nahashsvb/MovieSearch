@@ -87,6 +87,36 @@ struct MovieFullData: Decodable {
     let website     : String
     let response    : String
 
+    func imdbRatingString() -> String {
+        for rating in ratings {
+            if rating.source == "Internet Movie Database" {
+                return rating.value
+            }
+        }
+        
+        return "N/A"
+    }
+    
+    func metacriticRatingString() -> String {
+        for rating in ratings {
+            if rating.source == "Metacritic" {
+                return rating.value
+            }
+        }
+        
+        return "N/A"
+    }
+    
+    func rotteTomatoesRatingString() -> String {
+        for rating in ratings {
+            if rating.source == "Rotten Tomatoes" {
+                return rating.value
+            }
+        }
+        
+        return "N/A"
+    }
+    
     enum CodingKeys: String, CodingKey {
         case title      = "Title"
         case year       = "Year"
