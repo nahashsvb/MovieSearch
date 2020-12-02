@@ -59,6 +59,7 @@ class SearchMoviesViewController: UIViewController {
         }
     }
     
+    // TODO: Add the state enum - update the UI based on the state, instead of switching it based on the error
     func showError() {
         // If we already fetched some data - don't hide the collection view with it,
         // even if the next page request is failed
